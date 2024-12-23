@@ -12,6 +12,7 @@ function App() {
   const [time, setTime] = useState();
   const [humidity, setHumidity] = useState();
   const [gust, setGust] = useState();
+  const [country, setCountry] = useState();
 
   const inputRef = useRef("");
 
@@ -28,6 +29,7 @@ function App() {
       const time = a.location.localtime;
       const humidity = a.current.humidity;
       const gust = a.current.gust_kph;
+      const country = a.location.country;
 
       setCity(city);
       setTemp(temp);
@@ -36,6 +38,7 @@ function App() {
       setTime(time);
       setHumidity(humidity);
       setGust(gust);
+      setCountry(country);
 
       inputRef.current.focus();
     });
@@ -52,8 +55,9 @@ function App() {
       const condition = a.current.condition.text;
       const wind = a.current.wind_kph;
       const time = a.location.localtime;
-      const humidity = a.humidity;
-      const gust = a.gust;
+      const humidity = a.current.humidity;
+      const gust = a.current.gust_kph;
+      const country = a.location.country;
 
       setCity(city);
       setTemp(temp);
@@ -62,15 +66,19 @@ function App() {
       setTime(time);
       setHumidity(humidity);
       setGust(gust);
+      setCountry(country);
+
+      console.log(res.data);
+      inputRef.current.value = "";
     });
   };
 
   return (
-    <div className="bg-zinc-500 h-screen w-screen pt-20 flex flex-col relative">
-      <div className="bg-stone-400 flex justify-center h-1/2 w-4/6 mx-auto rounded-3xl cursor-default hover:scale-[101%] duration-500 transition hover:shadow-2xl relative">
+    <div className="bg-gradient-to-b from-slate-950 to-slate-800 h-screen w-screen pt-20 flex flex-col text-gray-200">
+      <div className="bg-slate-800 flex justify-center h-1/2 w-4/6 mx-auto rounded-3xl cursor-default hover:scale-[101%] duration-500 transition hover:shadow-2xl">
         <div className="p-4  w-full h-full">
           <div className="flex mx-auto justify-between">
-            <h3 className="">{city}</h3>
+            <h3 className="">{`${country}, ${city}`}</h3>
             <h3 className="">{time}</h3>
           </div>
 
@@ -82,7 +90,7 @@ function App() {
           <div className=" flex mt-10">
             <div className="flex flex-col justify-start font-medium">
               <h1 className="flex flex-row items-center space-x-2">
-                <img src="/assets/wind-speed.png" className=" scale-50 h-10" />
+                <img src="/assets/wind.png" className=" scale-50 h-10" />
                 {wind}km/h
               </h1>
               <span className="flex flex-row items-center space-x-2">
@@ -90,22 +98,22 @@ function App() {
                 {humidity}%
               </span>
               <span className="flex flex-row items-center space-x-2">
-                <img src="/assets/sun-svg.png" className="scale-50 w-10" />
+                <img src="/assets/typhoon.png" className="scale-50 w-10" />
                 {gust}h
               </span>
             </div>
 
-            <div className="flex justify-end flex-right w-full">
+            <div className="grid justify-end w-full">
               {temp >= 20 ? (
-                <img src="/assets/sun.png" className="w-36" />
+                <img src="/assets/sun.png" className="w-36 " />
               ) : temp >= 5 ? (
-                <img src="/assets/cloudy.png" className="w-36" />
+                <img src="/assets/cloudy.png" className="w-36 " />
               ) : temp >= 5 && condition == "Mist" ? (
                 <img src="/assets/fog.png" className="w-36" />
               ) : temp >= 5 && condition == "Patchy rain nearby" ? (
                 <img src="/assets/patchy.png" className="w-36" />
-              ) : (temp >= 5 && condition == "Overcast") ||
-                condition == "Partly Cloudy" ? (
+              ) : temp >= 5 &&
+                (condition == "Overcast" || condition == "Partly Cloudy") ? (
                 <img src="/assets/cloudy.png" className="w-36" />
               ) : (
                 <img src="/assets/snow-storm.png" className="w-36" />
@@ -116,20 +124,20 @@ function App() {
       </div>
 
       <div className="flex justify-center top-20 relative">
-        <div className="flex justify-between">
+        <label className="flex">
           <input
             placeholder="City Name"
             onKeyDown={(e) => (e.key === "Enter" ? handleSearch() : null)}
             ref={inputRef}
-            className="rounded-lg outline-none font-medium px-3 py-[1.5px] scale-125 duration-300 w-40 focus:w-48"
+            className="rounded-lg outline-none font-medium duration-300 h-11 pl-3 bg-gradient-to-l from-slate-700 to-slate-600 text-gray-200"
           />
           <button
             onClick={handleSearch}
-            className="relative  font-semibold bg-stone-400 rounded-lg py-1 px-2 ml-3 hover:bg-stone-300 duration-400 hover:scale-[105%] transition  hover:shadow-lg "
+            className="relative font-semibold rounded-lg py-1 px-2 ml-3 hover:scale-x-105 bg-gradient-to-r from-slate-700 to-slate-600 duration-500 hover:shadow-white "
           >
             Search
           </button>
-        </div>
+        </label>
       </div>
     </div>
   );
