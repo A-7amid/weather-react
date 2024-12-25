@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import Forecasts from "./Components/Forecasts";
 import "./index.css";
 import Axios from "axios";
 
-const API = "cb3f1ee833e94dc491a205816242112";
+const API_KEY = "cb3f1ee833e94dc491a205816242112";
 
 function App() {
   const [temp, setTemp] = useState();
@@ -18,7 +19,7 @@ function App() {
 
   useEffect(() => {
     Axios.get(
-      `https://api.weatherapi.com/v1/current.json?key=${API}&q=Cairo&aqi=yes
+      `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Cairo&aqi=yes
   `
     ).then((res) => {
       const a = res.data;
@@ -40,13 +41,13 @@ function App() {
       setGust(gust);
       setCountry(country);
 
-      inputRef.current.focus();
+      // inputRef.current.focus();
     });
   }, []);
 
   const handleSearch = () => {
     Axios.get(
-      `https://api.weatherapi.com/v1/current.json?key=${API}&q=${inputRef.current.value}&aqi=yes
+      `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${inputRef.current.value}&aqi=yes
 `
     ).then((res) => {
       const a = res.data;
@@ -68,14 +69,14 @@ function App() {
       setGust(gust);
       setCountry(country);
 
-      console.log(res.data);
-      inputRef.current.value = "";
+      // console.log(res.data);
+      // inputRef.current.value = "";
     });
   };
 
   return (
     <div className="bg-gradient-to-b from-slate-950 to-slate-800 h-screen w-screen pt-20 flex flex-col text-gray-200">
-      <div className="bg-slate-800 flex justify-center h-1/2 w-4/6 mx-auto rounded-3xl cursor-default hover:scale-[101%] duration-500 transition hover:shadow-2xl">
+      <div className="bg-slate-800 flex justify-center w-4/6 mx-auto rounded-3xl cursor-default hover:scale-[101%] duration-500 transition hover:shadow-2xl">
         <div className="p-4  w-full h-full">
           <div className="flex mx-auto justify-between">
             <h3 className="">{`${country}, ${city}`}</h3>
@@ -107,16 +108,16 @@ function App() {
               {temp >= 20 ? (
                 <img src="/assets/sun.png" className="w-36 " />
               ) : temp >= 5 ? (
-                <img src="/assets/cloudy.png" className="w-36 " />
+                <img src="/assets/cloudy.png" className="w-20 md:w-36" />
               ) : temp >= 5 && condition == "Mist" ? (
-                <img src="/assets/fog.png" className="w-36" />
+                <img src="/assets/fog.png" className="w-20 md:w-36" />
               ) : temp >= 5 && condition == "Patchy rain nearby" ? (
-                <img src="/assets/patchy.png" className="w-36" />
+                <img src="/assets/patchy.png" className="w-20 md:w-36" />
               ) : temp >= 5 &&
                 (condition == "Overcast" || condition == "Partly Cloudy") ? (
-                <img src="/assets/cloudy.png" className="w-36" />
+                <img src="/assets/cloudy.png" className="w-20 md:w-36" />
               ) : (
-                <img src="/assets/snow-storm.png" className="w-36" />
+                <img src="/assets/snow-storm.png" className="w-20 md:w-36" />
               )}
             </div>
           </div>
@@ -139,6 +140,8 @@ function App() {
           </button>
         </label>
       </div>
+
+      <Forecasts city={inputRef.current.value} temp={temp} />
     </div>
   );
 }
