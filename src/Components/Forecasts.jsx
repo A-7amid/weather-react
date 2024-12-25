@@ -20,7 +20,7 @@ const Forecasts = ({ city, temp }) => {
 
   return (
     <div className="mt-44 text-black">
-      <div className="grid grid-cols-5 gap-10 mx-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10 mx-10">
         <div className="bg-slate-700 text-slate-200 font-bold uppercase gap-8 py-5 flex flex-col items-center justify-center rounded-3xl cursor-default hover:scale-[101%] duration-500 transition hover:shadow-2xl">
           <h3>monday</h3>
 
@@ -29,7 +29,7 @@ const Forecasts = ({ city, temp }) => {
           </div>
 
           <div className="font-medium">
-            <span>{temp}°C</span>
+            <span>14.2°C</span>
           </div>
         </div>
 
@@ -37,11 +37,11 @@ const Forecasts = ({ city, temp }) => {
           <h3>Tuesday</h3>
 
           <div>
-            <img src="/assets/patchy.png" className="w-20 my-5" />
+            <img src="/assets/cloudy.png" className="w-20 my-5" />
           </div>
 
           <div className="font-medium">
-            <span>{temp}°C</span>
+            <span>19.3°C</span>
           </div>
         </div>
 
@@ -49,11 +49,11 @@ const Forecasts = ({ city, temp }) => {
           <h3>Wednesday</h3>
 
           <div>
-            <img src="/assets/patchy.png" className="w-20 my-5" />
+            <img src="/assets/overcast.png" className="w-20 my-5" />
           </div>
 
           <div className="font-medium">
-            <span>{temp}°C</span>
+            <span>7.9°C</span>
           </div>
         </div>
 
@@ -61,11 +61,11 @@ const Forecasts = ({ city, temp }) => {
           <h3>Thursday</h3>
 
           <div>
-            <img src="/assets/patchy.png" className="w-20 my-5" />
+            <img src="/assets/overcast.png" className="w-20 my-5" />
           </div>
 
           <div className="font-medium">
-            <span>{temp}°C</span>
+            <span>8°C</span>
           </div>
         </div>
 
@@ -73,11 +73,11 @@ const Forecasts = ({ city, temp }) => {
           <h3>Friday</h3>
 
           <div>
-            <img src="/assets/patchy.png" className="w-20 my-5" />
+            <img src="/assets/fog.png" className="w-20 my-5" />
           </div>
 
           <div className="font-medium">
-            <span>{temp}°C</span>
+            <span>16.7°C</span>
           </div>
         </div>
       </div>
